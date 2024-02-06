@@ -1,0 +1,41 @@
+name: ride_hailing_app
+description: A new Flutter project.
+
+publish_to: 'none' 
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.19.6 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  google_fonts: ^2.0.0
+
+  cupertino_icons: ^1.0.2
+  country_picker: ^2.0.20
+  pinput: ^3.0.1
+  image_picker: ^0.8.4       
+  pin_code_fields: ^7.3.0  
+  cached_network_image: ^3.0.0
+  flutter_svg: ^2.0.5
+  intl: ^0.17.0   
+  smooth_page_indicator: ^1.1.0
+  dotted_border: ^2.1.0
+
+  cloud_firestore: ^4.14.0
+  firebase_core: ^2.24.2
+  firebase_auth: ^4.15.3
+  provider: ^5.0.0
+  
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+   - assets/images/
+   - assets/images/app_icon.png

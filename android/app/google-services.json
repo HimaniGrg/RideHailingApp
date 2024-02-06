@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1052357695451",
+    "project_id": "ridehailingapp-13fd9",
+    "storage_bucket": "ridehailingapp-13fd9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1052357695451:android:b220b98ee274733be1b9fe",
+        "android_client_info": {
+          "package_name": "com.example.ride_hailing_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9yVlp2C86H3G6RfZvyyQ5E8nEacV9vyA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
