@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:ride_hailing_app/app_export.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'app_export.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(const MyApp());
+  try {
+    await Firebase.initializeApp();
+  } catch (e) {
+    print('Error initializing Firebase: $e');
+  }
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {

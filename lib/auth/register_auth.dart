@@ -1,41 +1,68 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 class RegisterAuth {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  static final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  //Method for phone authentication
-  Future<void> phoneAuthentication(String phoneNo) async {
-    await _auth.verifyPhoneNumber(
-      phoneNumber: phoneNo,
-      //handles the SMS code
-      verificationCompleted: (PhoneAuthCredential credential) async {
-        await _auth.signInWithCredential(credential).then(
-              (value) => print('Logged In Successfully'),
-            );
-      },
-      //handles exceptions
-      verificationFailed: (FirebaseAuthException authException) {
-        if (authException.code == 'invalid-phone-number') {
-          print('The provided phone number is not valid.');
-        } else {
-          print(authException.message);
-        }
-      },
-      //prompt user to enter the code
-      codeSent: (String verificationId, int? resendToken) async {
-        // wait for the user to enter the SMS code
-        // for simplicity, we use a placeholder 'xxxx' in the codeSent callback.
-        String smsCode = 'xxxxxx';
+  static String verifyId = "";
 
-        // Create a PhoneAuthCredential with the code
-        PhoneAuthCredential credential = PhoneAuthProvider.credential(
-            verificationId: verificationId, smsCode: smsCode);
-
-        // Sign the user in (or link) with the credential
-        await _auth.signInWithCredential(credential);
+  // function to send an OTP
+  static Future sendOTP({
+    required String phone,
+    required Function errorStep,
+    required Function nextStep,
+  }) async {
+    await _auth
+        .verifyPhoneNumber(
+      phoneNumber: phone,
+      timeout: Duration(seconds: 30),
+      verificationCompleted: (phoneAuthCredential) async {
+        return;
       },
-      //handle time out when automatic SMS code handling fails
-      codeAutoRetrievalTimeout: (String verificationId) {},
-    );
+      verificationFailed: (error) async {
+        return;
+      },
+      codeSent: (verificationId, forceResendingToken) async {
+        verifyId = verificationId;
+        nextStep();
+      },
+      codeAutoRetrievalTimeout: (verificationId) async {
+        return;
+      },
+    )
+        .onError((error, stackTrace) {
+      errorStep();
+    });
+  }
+
+  //function to verify OTP
+  static Future loginWithOTP({required String otp}) async {
+    final cred = PhoneAuthProvider.credential(
+        verificationId: verifyId,
+        smsCode:
+            otp); //verifyId => code send by system and otp => code user enter
+
+    try {
+      final user = await _auth.signInWithCredential(cred);
+      if (user.user != null) {
+        return "Sucsess";
+      } else {
+        return "error while login with otp";
+      }
+    } on FirebaseAuthException catch (e) {
+      return e.message.toString();
+    } catch (e) {
+      return e.toString();
+    }
+  }
+
+  //function to log out user
+  static Future logOut() async {
+    await _auth.signOut();
+  }
+
+  //check whether user is logged in or not
+  static Future<bool> isLoggedIn() async {
+    var user = _auth.currentUser;
+    return user != null;
   }
 }

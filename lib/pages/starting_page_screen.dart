@@ -10,6 +10,7 @@ class StartingPageScreen extends StatelessWidget {
         child: Scaffold(
             backgroundColor: theme.colorScheme.onPrimary.withOpacity(1),
             body: Container(
+                height: MediaQuery.of(context).size.height,
                 width: double.maxFinite,
                 padding: EdgeInsets.symmetric(horizontal: 32, vertical: 192),
                 child: Column(

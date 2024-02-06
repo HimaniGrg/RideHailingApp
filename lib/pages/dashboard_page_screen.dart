@@ -14,6 +14,7 @@ class _DashboardPageScreenState extends State<DashboardPageScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Dashboard'),
+        automaticallyImplyLeading: false,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
