@@ -15,22 +15,6 @@ class OtpPageScreen extends StatefulWidget {
 class _OtpPageScreenState extends State<OtpPageScreen> {
   String otpCode = "";
 
-  List<TextEditingController> otpControllers =
-      List.generate(6, (_) => TextEditingController());
-  List<FocusNode> focusNodes = List.generate(6, (_) => FocusNode());
-  bool areTextFieldsFilled = false;
-
-  @override
-  void dispose() {
-    for (var controller in otpControllers) {
-      controller.dispose();
-    }
-    for (var focusNode in focusNodes) {
-      focusNode.dispose();
-    }
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,10 +74,7 @@ class _OtpPageScreenState extends State<OtpPageScreen> {
               ),
               CustomElevatedButton(
                 text: "Submit OTP",
-                onPressed: () {
-                  if (otpCode != null) {}
-                  onTapSubmitOTP();
-                },
+                onPressed: () {},
               ),
               const SizedBox(height: 20),
               const Text(
